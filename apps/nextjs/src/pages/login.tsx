@@ -24,7 +24,7 @@ export default function LoginPage() {
   }, [error]);
 
   if (status === "authenticated") {
-    router.push("/learn");
+    void router.push("/learn");
   } else if (status === "loading") {
     return <div>Loading...</div>;
   }
@@ -35,18 +35,21 @@ export default function LoginPage() {
       setEmailInput={setEmailInput}
       onGoogleSignIn={onGoogleSignIn}
       onDiscordSignIn={onDiscordSignIn}
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onEmailSignIn={onEmailSignIn}
     />
   );
 
-  async function onGoogleSignIn() {
+  function onGoogleSignIn() {
     signIn("google").catch((error) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
       toast.error(error.message);
     });
   }
 
-  async function onDiscordSignIn() {
+  function onDiscordSignIn() {
     signIn("discord").catch((error) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
       toast.error(error.message);
     });
   }

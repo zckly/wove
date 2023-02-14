@@ -12,6 +12,7 @@ const OnboardingCollections: NextPage = () => {
   const [domain, setDomain] = useState<string>("");
   const [domains, setDomains] = useState<string[]>([]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
   const { mutate } = api.collection.createMany.useMutation({
     async onSuccess() {
       setDomain("");
@@ -88,7 +89,7 @@ const OnboardingCollections: NextPage = () => {
                   type={ButtonType.Secondary}
                   onClick={(e) => {
                     e.preventDefault();
-                    router.push("/onboarding/goal");
+                    void router.push("/onboarding/goal");
                   }}
                 >
                   Back
@@ -110,6 +111,7 @@ const OnboardingCollections: NextPage = () => {
   );
 
   function handleNext() {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     mutate({
       names: domains,
     });

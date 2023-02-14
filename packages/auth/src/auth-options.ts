@@ -45,11 +45,7 @@ const client = new PostHog(
 );
 
 // Email HTML body
-function html({
-  host,
-  email,
-  token,
-}: Record<"url" | "host" | "email" | "token", string>) {
+function html({ email, token }: Record<"url" | "email" | "token", string>) {
   // Insert invisible space into domains and email address to prevent both the
   // email address and the domain from being turned into a hyperlink by email
   // clients like Outlook and Apple mail, as this is confusing because it seems
@@ -166,7 +162,7 @@ export const authOptions: NextAuthOptions = {
     EmailProvider({
       server: process.env.POSTMARK_EMAIL_SERVER,
       from: process.env.POSTMARK_FROM_EMAIL,
-      async generateVerificationToken() {
+      generateVerificationToken() {
         return rn(options).toString();
       },
       async sendVerificationRequest({
@@ -175,14 +171,13 @@ export const authOptions: NextAuthOptions = {
         provider: { server, from },
         token,
       }) {
-        const { host } = new URL(url);
         const transport = nodemailer.createTransport(server);
         await transport.sendMail({
           to: email,
           from,
           subject: `Sign in to Playground`,
           text: text({ token }),
-          html: html({ url, host, email, token }),
+          html: html({ url, email, token }),
         });
       },
     }),

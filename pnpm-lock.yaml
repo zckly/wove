@@ -153,7 +153,6 @@ importers:
       react-spring: ^9.6.1
       tailwindcss: ^3.2.4
       typescript: ^4.9.4
-      youtube-search-api: 1.1.1
       zod: ^3.20.2
     dependencies:
       '@headlessui/react': 1.7.10_biqbaboplfbrettd7655fr4n2y
@@ -177,7 +176,6 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       react-hot-toast: 2.4.0_biqbaboplfbrettd7655fr4n2y
       react-spring: 9.6.1_biqbaboplfbrettd7655fr4n2y
-      youtube-search-api: 1.1.1
       zod: 3.20.2
     devDependencies:
       '@types/node': 18.11.18
@@ -5334,14 +5332,6 @@ packages:
     resolution: {integrity: sha512-b1WlTV8+XKLj9gZy2DZXgQiyDp9xkkoe2a6U6UbYccScq2wgH/YwCeI2/Jq2mgo0HzQxqJOjWZBLeA/mqsk5Mg==}
     engines: {node: '>=4'}
     dev: true
-
-  /axios/0.21.4:
-    resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
-    dependencies:
-      follow-redirects: 1.15.2
-    transitivePeerDependencies:
-      - debug
-    dev: false
 
   /axios/0.26.1:
     resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
@@ -13660,14 +13650,6 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-
-  /youtube-search-api/1.1.1:
-    resolution: {integrity: sha512-3OiD1V+ZPH2oNzBhNsbTsLBbp/VoIGnPEEOLrF7rfrpwpjlw/Sm+i/TQHK2YfC5NF6i2auiOYHyK7r983VXmzA==}
-    dependencies:
-      axios: 0.21.4
-    transitivePeerDependencies:
-      - debug
-    dev: false
 
   /zip-stream/4.1.0:
     resolution: {integrity: sha512-zshzwQW7gG7hjpBlgeQP9RuyPGNxvJdzR8SUM3QhxCnLjWN2E7j3dOvpeDcQoETfHx0urRS7EtmVToql7YpU4A==}

@@ -10,6 +10,7 @@ export function setLocalStorage(key: string, value: unknown) {
 export function getLocalStorage(key: string, initialValue: unknown) {
   try {
     const value = window.localStorage.getItem(key);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return value ? JSON.parse(value) : initialValue;
   } catch (e) {
     // if error, return initial value
