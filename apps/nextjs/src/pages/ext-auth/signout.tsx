@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import { type NextPage } from "next";
 import { useRouter } from "next/router";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 import { env } from "~/env.mjs";
 
 const Success: NextPage = () => {
-  const { status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
