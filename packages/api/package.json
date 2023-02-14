@@ -1,5 +1,5 @@
 {
-  "name": "@acme/api",
+  "name": "@wove/api",
   "version": "0.1.0",
   "main": "./index.ts",
   "types": "./index.ts",
@@ -10,8 +10,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@acme/auth": "*",
-    "@acme/db": "*",
+    "@wove/auth": "*",
+    "@wove/db": "*",
     "@trpc/client": "^10.9.0",
     "@trpc/server": "^10.9.0",
     "superjson": "1.12.2",

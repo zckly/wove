@@ -46,3 +46,64 @@ chrome.runtime.onMessageExternal.addListener(
     }
   },
 );
+
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  if (tab.active && !("audible" in changeInfo) && changeInfo.title) {
+    console.log("[Plasmo Background Script]: Tab updated: ", {
+      tabId,
+      changeInfo,
+      tab,
+    });
+
+    // Get access token
+    const storageValue = await storage.get<unknown>("accessToken");
+
+    // Check what site they're on
+
+    // Youtube
+    if (tab.url.includes("https://www.youtube.com/watch?v=")) {
+      // TODO: Swap this out with env variable for ML API
+      const response = await fetch(`http://localhost:8000/resource`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          url: tab.url || "",
+          access_token: storageValue,
+        }),
+      });
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const data = await response.json();
+      console.log({ data });
+
+      // chrome.scripting.executeScript(
+      //   {
+      //     target: {
+      //       tabId, // the tab you want to inject into
+      //     },
+      //     world: "MAIN", // MAIN to access the window object
+      //     func: () => {
+      //       console.log("Background script injected into YT");
+
+      //       const titleElem = document.querySelector(
+      //         "h1.style-scope.ytd-watch-metadata",
+      //       );
+      //       console.log(titleElem?.textContent.trim());
+      //     }, // function to inject
+      //   },
+      //   () => {
+      //     console.log("Background script got callback after injection");
+      //   },
+      // );
+    }
+  }
+});
+
+// chrome.history.search({ text: "", maxResults: 10 }, function (data) {
+//   data.forEach(function (page) {
+//     console.log({ page });
+//   });
+// });

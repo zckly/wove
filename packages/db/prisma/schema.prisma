@@ -17,6 +17,75 @@ model Post {
     content String
 }
 
+enum VideoPlatform {
+    YOUTUBE
+    TIKTOK
+    OTHER
+}
+model Video {
+    id           String @id @default(cuid())
+    videoId      String
+    title        String
+    description  String? @db.LongText
+    channel      String?
+    platform     VideoPlatform
+    url          String
+    thumbnailUrl String?
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+    actions      ResourceAction[]
+}
+
+enum ActionType {
+    STARTED
+    STOPPED
+}
+
+enum ResourceType {
+    VIDEO
+}
+model ResourceAction {
+    id        String @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    type      ActionType
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+    video     Video? @relation(fields: [videoId], references: [id], onDelete: Cascade)
+    videoId   String?
+
+    @@index([userId])
+    @@index([videoId])
+}
+
+model Collection {
+    id        String @id @default(cuid())
+    name      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+
+    goals        Goal[]
+
+    @@index([userId])
+}
+
+model Goal {
+    id        String @id @default(cuid())
+    name      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+
+    collection Collection? @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+    collectionId String?
+
+    @@index([userId])
+    @@index([collectionId])
+}
+
 // NextAuth.js Models
 // NOTE: When using postgresql, mysql or sqlserver, 
 // uncomment the @db.Text annotations below
@@ -46,17 +115,34 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
     @@index([userId])
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
+    id                 String    @id @default(cuid())
+    name               String?
+    firstName          String?
+    lastName           String?
+    username           String?   @unique
+    email              String?   @unique
+    emailVerified      DateTime?
+    image              String?
+
+    onboardingPurpose  String?
+    onboardingGoal     String?
+    onboardingRole     String?
+    accounts           Account[]
+    sessions           Session[]
+    ownedTeams         Team[]
+    memberships        TeamMembership[]
+
+    collections        Collection[]
+    goals              Goal[]
+    resourceActions    ResourceAction[]
+
+    createdAt          DateTime  @default(now())
+    updatedAt          DateTime  @updatedAt
 }
 
 model VerificationToken {
@@ -65,4 +151,44 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+
+// Team
+enum TeamRole {
+    ADMIN
+    MEMBER
+}
+model TeamMembership {
+    id       String @id @default(cuid())
+    team     Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+    teamId   String
+    user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId   String
+    role     TeamRole
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([teamId])
+    @@index([userId])
+}
+
+model Team {
+    id        String @id @default(cuid())
+    name      String
+    image     String?
+    ownerId   String
+    owner     User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    members TeamMembership[]
+
+    stripeCustomerId String?
+    stripeSubscriptionId String?
+    stripePriceId String?
+    stripeCurrentPeriodEnd DateTime?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([ownerId])
 }

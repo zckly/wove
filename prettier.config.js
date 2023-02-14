@@ -17,7 +17,7 @@ module.exports = {
     "^(next/(.*)$)|^(next$)",
     "^(expo(.*)$)|^(expo$)",
     "<THIRD_PARTY_MODULES>",
-    "^@acme/(.*)$",
+    "^@wove/(.*)$",
     "",
     "^~/utils/(.*)$",
     "^~/components/(.*)$",

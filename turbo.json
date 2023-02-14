@@ -9,6 +9,10 @@
       "inputs": ["prisma/schema.prisma"],
       "cache": false
     },
+    "db:push-hard": {
+      "inputs": ["prisma/schema.prisma"],
+      "cache": false
+    },
     "dev": {
       "persistent": true,
       "cache": false

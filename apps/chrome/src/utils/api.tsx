@@ -1,8 +1,8 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createTRPCReact, httpBatchLink } from "@trpc/react-query";
-import type { AppRouter } from "@acme/api";
-import { transformer } from "@acme/api/transformer";
+import type { AppRouter } from "@wove/api";
+import { transformer } from "@wove/api/transformer";
 
 export const api = createTRPCReact<AppRouter>();
 

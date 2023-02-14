@@ -4,8 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
-import type { AppRouter } from "@acme/api";
-import { transformer } from "@acme/api/transformer";
+import type { AppRouter } from "@wove/api";
+import { transformer } from "@wove/api/transformer";
 
 /**
  * A set of typesafe hooks for consuming your API.

@@ -9,8 +9,8 @@
 import { TRPCError, initTRPC } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
-import { getServerSession, type Session } from "@acme/auth";
-import { prisma } from "@acme/db";
+import { getServerSession, type Session } from "@wove/auth";
+import { prisma } from "@wove/db";
 
 /**
  * 1. CONTEXT

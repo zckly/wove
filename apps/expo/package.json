@@ -1,5 +1,5 @@
 {
-  "name": "@acme/expo",
+  "name": "@wove/expo",
   "version": "0.1.0",
   "main": "index.ts",
   "scripts": {
@@ -11,14 +11,15 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@acme/api": "*",
-    "@acme/tailwind-config": "*",
     "@shopify/flash-list": "1.3.1",
     "@tanstack/react-query": "^4.23.0",
     "@trpc/client": "^10.9.0",
     "@trpc/react-query": "^10.9.0",
     "@trpc/server": "^10.9.0",
+    "@wove/api": "*",
+    "@wove/tailwind-config": "*",
     "expo": "~47.0.13",
+    "expo-constants": "~14.0.2",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "nativewind": "^2.0.11",
