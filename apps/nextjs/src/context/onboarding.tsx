@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { getLocalStorage, setLocalStorage } from "~/utils/helpers/localStorage";
