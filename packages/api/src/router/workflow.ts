@@ -1,12 +1,27 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const workflowRouter = createTRPCRouter({
-  all: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.workflow.findMany({ orderBy: { id: "desc" } });
+  all: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.workflow.findMany({
+      orderBy: { id: "desc" },
+      include: {
+        blocks: true,
+        runs: true,
+      },
+      where: {
+        team: {
+          members: {
+            some: {
+              userId: ctx.session.user.id,
+            },
+          },
+        },
+      },
+    });
   }),
-  byId: publicProcedure.input(z.string().min(1)).query(({ ctx, input }) => {
+  byId: protectedProcedure.input(z.string().min(1)).query(({ ctx, input }) => {
     return ctx.prisma.workflow.findFirst({
       where: { id: input },
       include: {
