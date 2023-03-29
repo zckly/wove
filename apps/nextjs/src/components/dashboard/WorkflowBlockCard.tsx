@@ -23,7 +23,7 @@ export default function WorkflowBlockCard({
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [nameInput, setNameInput] = useState<string>(block.name);
   const [prompt, setPrompt] = useState<string>(block.description || "");
-  const [logsHidden, setLogsHidden] = useState<boolean>(false);
+  const [logsHidden, setLogsHidden] = useState<boolean>(true);
 
   const { mutate: deleteBlock } = api.workflowBlock.delete.useMutation({
     async onSuccess() {
@@ -48,7 +48,7 @@ export default function WorkflowBlockCard({
                 type="text"
                 name="name"
                 id="name"
-                className="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                className="block w-full shadow-sm sm:text-sm focus:ring-gigas-500 focus:border-gigas-500 border-gray-300 rounded-md"
                 value={nameInput}
                 onChange={(e) => setNameInput(e.target.value)}
               />
@@ -64,7 +64,7 @@ export default function WorkflowBlockCard({
                 {isEditing ? (
                   <button
                     type="button"
-                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gigas-600 hover:bg-gigas-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gigas-500"
                     onClick={() => {
                       updateBlock({
                         blockId: block.id,
@@ -150,7 +150,7 @@ export default function WorkflowBlockCard({
         <div className="py-4">
           {isEditing ? (
             <textarea
-              className="w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="w-full border border-gray-300 rounded-md shadow-sm focus:ring-gigas-500 focus:border-gigas-500 sm:text-sm"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
             />
