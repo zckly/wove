@@ -1,7 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
+
+import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   ChevronDownIcon,
-  MagnifyingGlassIcon
+  MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import {
   Bars3Icon,
@@ -13,10 +16,9 @@ import {
   FolderIcon,
   HomeIcon,
   UsersIcon,
-  XMarkIcon
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import clsx from "clsx";
-import { Fragment, useState } from "react";
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -37,7 +39,7 @@ const userNavigation = [
 ];
 
 export default function SidebarLayout({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) {
@@ -111,7 +113,7 @@ export default function SidebarLayout({
                     <div className="flex h-16 shrink-0 items-center">
                       <img
                         className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                        src="https://tailwindui.com/img/logos/mark.svg?color=gigas&shade=600"
                         alt="Your Company"
                       />
                     </div>
@@ -125,16 +127,16 @@ export default function SidebarLayout({
                                   href={item.href}
                                   className={clsx(
                                     item.current
-                                      ? "bg-gray-50 text-indigo-600"
-                                      : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                                      ? "bg-gray-50 text-gigas-600"
+                                      : "text-gray-700 hover:text-gigas-600 hover:bg-gray-50",
                                     "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
                                   )}
                                 >
                                   <item.icon
                                     className={clsx(
                                       item.current
-                                        ? "text-indigo-600"
-                                        : "text-gray-400 group-hover:text-indigo-600",
+                                        ? "text-gigas-600"
+                                        : "text-gray-400 group-hover:text-gigas-600",
                                       "h-6 w-6 shrink-0",
                                     )}
                                     aria-hidden="true"
@@ -156,16 +158,16 @@ export default function SidebarLayout({
                                   href={team.href}
                                   className={clsx(
                                     team.current
-                                      ? "bg-gray-50 text-indigo-600"
-                                      : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                                      ? "bg-gray-50 text-gigas-600"
+                                      : "text-gray-700 hover:text-gigas-600 hover:bg-gray-50",
                                     "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
                                   )}
                                 >
                                   <span
                                     className={clsx(
                                       team.current
-                                        ? "text-indigo-600 border-indigo-600"
-                                        : "text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600",
+                                        ? "text-gigas-600 border-gigas-600"
+                                        : "text-gray-400 border-gray-200 group-hover:border-gigas-600 group-hover:text-gigas-600",
                                       "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white",
                                     )}
                                   >
@@ -180,10 +182,10 @@ export default function SidebarLayout({
                         <li className="mt-auto">
                           <a
                             href="#"
-                            className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
+                            className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-gigas-600"
                           >
                             <Cog6ToothIcon
-                              className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
+                              className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-gigas-600"
                               aria-hidden="true"
                             />
                             Settings
@@ -205,7 +207,7 @@ export default function SidebarLayout({
             <div className="flex h-16 shrink-0 items-center">
               <img
                 className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                src="https://tailwindui.com/img/logos/mark.svg?color=gigas&shade=600"
                 alt="Your Company"
               />
             </div>
@@ -219,16 +221,16 @@ export default function SidebarLayout({
                           href={item.href}
                           className={clsx(
                             item.current
-                              ? "bg-gray-50 text-indigo-600"
-                              : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                              ? "bg-gray-50 text-gigas-600"
+                              : "text-gray-700 hover:text-gigas-600 hover:bg-gray-50",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
                           )}
                         >
                           <item.icon
                             className={clsx(
                               item.current
-                                ? "text-indigo-600"
-                                : "text-gray-400 group-hover:text-indigo-600",
+                                ? "text-gigas-600"
+                                : "text-gray-400 group-hover:text-gigas-600",
                               "h-6 w-6 shrink-0",
                             )}
                             aria-hidden="true"
@@ -250,16 +252,16 @@ export default function SidebarLayout({
                           href={team.href}
                           className={clsx(
                             team.current
-                              ? "bg-gray-50 text-indigo-600"
-                              : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                              ? "bg-gray-50 text-gigas-600"
+                              : "text-gray-700 hover:text-gigas-600 hover:bg-gray-50",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
                           )}
                         >
                           <span
                             className={clsx(
                               team.current
-                                ? "text-indigo-600 border-indigo-600"
-                                : "text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600",
+                                ? "text-gigas-600 border-gigas-600"
+                                : "text-gray-400 border-gray-200 group-hover:border-gigas-600 group-hover:text-gigas-600",
                               "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white",
                             )}
                           >
@@ -274,10 +276,10 @@ export default function SidebarLayout({
                 <li className="mt-auto">
                   <a
                     href="#"
-                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
+                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-gigas-600"
                   >
                     <Cog6ToothIcon
-                      className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
+                      className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-gigas-600"
                       aria-hidden="true"
                     />
                     Settings

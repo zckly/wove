@@ -6,6 +6,7 @@ import { api } from "~/utils/api";
 import WorkflowBlockCard from "~/components/dashboard/WorkflowBlockCard";
 import WorkflowPageHeader from "~/components/dashboard/WorkflowPageHeader";
 import WorkflowLayout from "~/components/layouts/WorkflowLayout";
+import Spinner from "~/components/primitives/Spinner";
 
 const WorkflowPage: React.FC = () => {
   const router = useRouter();
@@ -26,7 +27,11 @@ const WorkflowPage: React.FC = () => {
   });
 
   if (workflowStatus === "loading") {
-    return <div>Loading...</div>;
+    return (
+      <div className="h-screen w-full flex flex-col items-center justify-center">
+        <Spinner />
+      </div>
+    );
   }
 
   if (workflowStatus === "error" || !workflow) {
@@ -50,7 +55,7 @@ const WorkflowPage: React.FC = () => {
                     workflowId: workflow.id,
                   });
                 }}
-                className="rounded-full border border-indigo-600 p-1.5 text-indigo-600 shadow-sm hover:bg-indigo-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="rounded-full border border-gigas-600 p-1.5 text-gigas-600 shadow-sm hover:bg-gigas-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gigas-600"
               >
                 <PlusIcon className="h-5 w-5" aria-hidden="true" />
               </button>

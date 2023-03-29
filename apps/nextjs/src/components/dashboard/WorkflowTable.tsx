@@ -1,22 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { api } from "~/utils/api";
-
-const people = [
-  {
-    name: "Lindsay Walton",
-    title: "Front-end Developer",
-    department: "Optimization",
-    email: "lindsay.walton@example.com",
-    role: "Member",
-    image:
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  // More people...
-];
+import Spinner from "../primitives/Spinner";
 
 export default function WorkflowTable() {
   const { data: teamData, status: teamStatus } = api.team.activeTeam.useQuery();
+  const { data: workflows, status: workflowsStatus } =
+    api.workflow.all.useQuery();
   const { mutateAsync } = api.workflow.create.useMutation();
 
   const router = useRouter();
@@ -30,8 +22,12 @@ export default function WorkflowTable() {
     await router.push(`/workflows/${workflow.id}`);
   };
 
-  if (teamStatus === "loading") {
-    return <div>Loading...</div>;
+  if (teamStatus !== "success" || workflowsStatus !== "success") {
+    return (
+      <div className="h-screen w-full flex flex-col items-center justify-center">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
@@ -49,10 +45,10 @@ export default function WorkflowTable() {
           <button
             onClick={(e) => {
               e.preventDefault();
-              handleCreateWorkflow();
+              void handleCreateWorkflow();
             }}
             type="button"
-            className="block rounded-md bg-indigo-600 py-2 px-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="block rounded-md bg-gigas-600 py-2 px-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-gigas-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gigas-600"
           >
             Create workflow
           </button>
@@ -74,7 +70,13 @@ export default function WorkflowTable() {
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    Title
+                    Size
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Runs
                   </th>
                   <th
                     scope="col"
@@ -82,56 +84,59 @@ export default function WorkflowTable() {
                   >
                     Status
                   </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
-                    Role
-                  </th>
+
                   <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                     <span className="sr-only">Edit</span>
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {people.map((person) => (
-                  <tr key={person.email}>
+                {workflows.map((workflow) => (
+                  <tr key={workflow.id}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0">
                       <div className="flex items-center">
                         <div className="h-10 w-10 flex-shrink-0">
                           <img
                             className="h-10 w-10 rounded-full"
-                            src={person.image}
+                            src={
+                              "https://em-content.zobj.net/thumbs/240/apple/354/light-bulb_1f4a1.png"
+                            }
                             alt=""
                           />
                         </div>
                         <div className="ml-4">
-                          <div className="font-medium text-gray-900">
-                            {person.name}
+                          <div className="font-medium text-gray-900 hover:underline">
+                            <Link href={`/workflows/${workflow.id}`}>
+                              {workflow.name}
+                            </Link>
                           </div>
-                          <div className="text-gray-500">{person.email}</div>
+                          <div className="text-gray-500">
+                            {workflow.description}
+                          </div>
                         </div>
                       </div>
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      <div className="text-gray-900">{person.title}</div>
-                      <div className="text-gray-500">{person.department}</div>
+                      <div className="text-gray-900">
+                        {workflow.blocks.length} blocks
+                      </div>
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      {workflow.runs.length} runs
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       <span className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
                         Active
                       </span>
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {person.role}
-                    </td>
+
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                      <a
-                        href="#"
-                        className="text-indigo-600 hover:text-indigo-900"
+                      <Link
+                        href={`/workflows/${workflow.id}`}
+                        className="text-gigas-600 hover:text-gigas-900"
                       >
-                        Edit<span className="sr-only">, {person.name}</span>
-                      </a>
+                        Edit
+                      </Link>
                     </td>
                   </tr>
                 ))}
