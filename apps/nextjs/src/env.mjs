@@ -23,6 +23,8 @@ export const server = z.object({
   DISCORD_CLIENT_ID: z.string(),
   DISCORD_CLIENT_SECRET: z.string(),
   OPENAI_API_KEY: z.string(),
+  SERPAPI_API_KEY: z.string(),
+  SERPER_API_KEY: z.string(),
 });
 
 /**
@@ -48,6 +50,8 @@ const processEnv = {
   DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
   DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+  SERPAPI_API_KEY: process.env.SERPAPI_API_KEY,
+  SERPER_API_KEY: process.env.SERPER_API_KEY,
   NEXT_PUBLIC_EXTENSION_ID: process.env.NEXT_PUBLIC_EXTENSION_ID,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };

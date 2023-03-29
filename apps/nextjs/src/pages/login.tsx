@@ -24,7 +24,8 @@ export default function LoginPage() {
   }, [error]);
 
   if (status === "authenticated") {
-    void router.push("/learn");
+    void router.push("/app");
+    return;
   } else if (status === "loading") {
     return <div>Loading...</div>;
   }

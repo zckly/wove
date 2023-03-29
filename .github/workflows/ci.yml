@@ -14,8 +14,17 @@ env:
 
 jobs:
   build-lint:
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wove
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     env:
-      DATABASE_URL: file:./db.sqlite
+      DATABASE_URL: mysql://root@127.0.0.1:3309/wove
     runs-on: ubuntu-latest
 
     steps:

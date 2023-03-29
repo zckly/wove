@@ -6,7 +6,7 @@ import GoogleProvider from "next-auth/providers/google";
 import nodemailer from "nodemailer";
 import { PostHog } from "posthog-node";
 import rn from "random-number";
-import { TeamRole, prisma } from "@wove/db";
+import { prisma } from "@wove/db";
 
 /**
  * Module augmentation for `next-auth` types
@@ -130,11 +130,11 @@ export const authOptions: NextAuthOptions = {
           },
         });
         // Create a new TeamMembership for the user
-        await prisma.teamMembership.create({
+        await prisma.teamMember.create({
           data: {
             team: { connect: { id: team.id } },
             user: { connect: { id: message.user.id } },
-            role: TeamRole.ADMIN,
+            isAdmin: true,
           },
         });
       } else {

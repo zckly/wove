@@ -10,10 +10,12 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@wove/auth": "*",
-    "@wove/db": "*",
     "@trpc/client": "^10.9.0",
     "@trpc/server": "^10.9.0",
+    "@wove/auth": "*",
+    "@wove/db": "*",
+    "langchain": "^0.0.42",
+    "openai": "^3.1.0",
     "superjson": "1.12.2",
     "zod": "^3.20.2"
   },

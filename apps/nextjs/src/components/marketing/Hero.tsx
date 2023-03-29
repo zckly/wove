@@ -34,14 +34,14 @@ export default function Hero() {
   }
 
   return (
-    <div className="h-screen m-0 overflow-hidden">
+    <div className="max-w-[1512px] max-h-[982px] border border-black rounded-xl h-screen m-0 overflow-hidden ">
       <img
         src="/bright-rain.png"
         alt="noise"
         className="absolute left-0 top-0 min-w-full min-h-full mix-blend-overlay opacity-20 pointer-events-none"
       />
       <svg
-        className="lg:min-h-screen lg:min-w-screen h-full"
+        className="lg:min-w-full h-full"
         ref={svgRef}
         onMouseMove={(e) => {
           const coords = screenToSVG({ x: e.clientX, y: e.clientY });
@@ -247,7 +247,7 @@ export default function Hero() {
         <main>
           <div className="relative px-6 lg:px-8">
             <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-              <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+              <div className="hidden sm:mb-8 lg:mb-24 sm:flex sm:justify-center">
                 {/* <div className="relative rounded-full py-1 px-3 text-sm leading-6 text-gray-200 ring-1 ring-white/10 hover:ring-white/20">
                   Announcing our next round of funding.{" "}
                   <a href="#" className="font-semibold text-white">
@@ -257,10 +257,10 @@ export default function Hero() {
                 </div> */}
               </div>
               <div className="text-center">
-                <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-                  The operating system for self learners
+                <h1 className="text-4xl font-bold tracking-tight text-white/70 sm:text-6xl">
+                  Teach yourself anything
                 </h1>
-                <p className="mt-6 text-lg leading-8 lg:text-gray-200 text-gray-200">
+                <p className="mt-6 text-lg leading-8 text-white/70">
                   Wove is the world&apos;s first AI-powered personal learning
                   assistant. Effectively reach your goals, navigate through new
                   domains, and automatically organize your knowledge.
@@ -270,7 +270,7 @@ export default function Hero() {
                     href="#"
                     className="rounded-md bg-white px-3.5 py-1.5 text-base pointer-events-auto font-semibold leading-7 text-gray-800 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
                   >
-                    Get started
+                    Request access
                   </a>
                   <a
                     href="#"

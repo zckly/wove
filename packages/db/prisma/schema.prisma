@@ -6,84 +6,70 @@ generator client {
 }
 
 datasource db {
-    provider = "mysql"
+    provider = "sqlite"
     url      = env("DATABASE_URL")
-    relationMode = "prisma"
 }
 
-model Post {
-    id      String @id @default(cuid())
-    title   String
-    content String
+model Folder {
+  id      String    @id @default(cuid())
+  name    String
+  team    Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId  String
+  workflows Workflow[]
 }
 
-enum VideoPlatform {
-    YOUTUBE
-    TIKTOK
-    OTHER
-}
-model Video {
-    id           String @id @default(cuid())
-    videoId      String
-    title        String
-    description  String? @db.LongText
-    channel      String?
-    platform     VideoPlatform
-    url          String
-    thumbnailUrl String?
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
-    actions      ResourceAction[]
+model Workflow {
+  id          String          @id @default(cuid())
+  name        String
+  description String?
+  isScheduled Boolean         @default(false)
+  scheduleTime DateTime?
+  team        Team            @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId      String
+  folder      Folder?         @relation(fields: [folderId], references: [id])
+  folderId    String?
+  blocks      WorkflowBlock[]
+  runs        WorkflowRun[]
 }
 
-enum ActionType {
-    STARTED
-    STOPPED
+model WorkflowBlock {
+  id           String         @id @default(cuid())
+  name         String
+  description  String?
+  workflow     Workflow       @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  workflowId   String
+  template     WorkflowTemplate? @relation(fields: [templateId], references: [id])
+  templateId   String?
+  runs         WorkflowBlockRun[]
 }
 
-enum ResourceType {
-    VIDEO
-}
-model ResourceAction {
-    id        String @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    type      ActionType
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId    String
-    video     Video? @relation(fields: [videoId], references: [id], onDelete: Cascade)
-    videoId   String?
-
-    @@index([userId])
-    @@index([videoId])
+model WorkflowRun {
+  id           String         @id @default(cuid())
+  workflow     Workflow       @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  workflowId   String
+  blocks       WorkflowBlockRun[]
 }
 
-model Collection {
-    id        String @id @default(cuid())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId    String
-
-    goals        Goal[]
-
-    @@index([userId])
+model WorkflowBlockRun {
+  id           String         @id @default(cuid())
+  workflowRun  WorkflowRun    @relation(fields: [workflowRunId], references: [id], onDelete: Cascade)
+  workflowRunId String
+  block        WorkflowBlock  @relation(fields: [blockId], references: [id], onDelete: Cascade)
+  blockId      String
+  status       String
+  startedAt    DateTime?
+  endedAt      DateTime?
+  logs         String?
 }
 
-model Goal {
-    id        String @id @default(cuid())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId    String
-
-    collection Collection? @relation(fields: [collectionId], references: [id], onDelete: Cascade)
-    collectionId String?
-
-    @@index([userId])
-    @@index([collectionId])
+model WorkflowTemplate {
+  id          String         @id @default(cuid())
+  name        String
+  description String?
+  isPublic    Boolean
+  team        Team           @relation(fields: [teamId], references: [id])
+  teamId      String
+  blocks      WorkflowBlock[]
 }
 
 // NextAuth.js Models
@@ -96,17 +82,16 @@ model Account {
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? @db.Text
-    access_token      String? @db.Text
+    refresh_token     String?
+    access_token      String?
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? @db.Text
+    id_token          String? 
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
-    @@index([userId])
 }
 
 model Session {
@@ -115,8 +100,6 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-    @@index([userId])
 }
 
 model User {
@@ -135,11 +118,7 @@ model User {
     accounts           Account[]
     sessions           Session[]
     ownedTeams         Team[]
-    memberships        TeamMembership[]
-
-    collections        Collection[]
-    goals              Goal[]
-    resourceActions    ResourceAction[]
+    teams              TeamMember[]
 
     createdAt          DateTime  @default(now())
     updatedAt          DateTime  @updatedAt
@@ -154,24 +133,16 @@ model VerificationToken {
 }
 
 
-// Team
-enum TeamRole {
-    ADMIN
-    MEMBER
-}
-model TeamMembership {
+model TeamMember{
     id       String @id @default(cuid())
     team     Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
     teamId   String
     user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId   String
-    role     TeamRole
+    isAdmin  Boolean @default(false)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
-    @@index([teamId])
-    @@index([userId])
 }
 
 model Team {
@@ -180,7 +151,10 @@ model Team {
     image     String?
     ownerId   String
     owner     User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-    members TeamMembership[]
+    members   TeamMember[]
+    folders   Folder[]
+    workflows Workflow[]
+    templates WorkflowTemplate[]
 
     stripeCustomerId String?
     stripeSubscriptionId String?
@@ -189,6 +163,4 @@ model Team {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
-    @@index([ownerId])
 }
