@@ -43,6 +43,7 @@ const WorkflowPage: React.FC = () => {
       <div className="pb-12">
         <WorkflowPageHeader workflow={workflow} />
       </div>
+
       <ul className="flex flex-col gap-y-4">
         {workflow?.blocks?.map((block) => (
           <Fragment key={block.id}>
