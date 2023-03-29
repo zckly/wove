@@ -1,7 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
+
+import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   ChevronDownIcon,
-  MagnifyingGlassIcon
+  MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import {
   Bars3Icon,
@@ -13,10 +16,9 @@ import {
   FolderIcon,
   HomeIcon,
   UsersIcon,
-  XMarkIcon
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import clsx from "clsx";
-import { Fragment, useState } from "react";
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -37,7 +39,7 @@ const userNavigation = [
 ];
 
 export default function SidebarLayout({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) {

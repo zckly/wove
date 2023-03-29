@@ -108,23 +108,13 @@ const initEdges = [
 ];
 
 const Flow = () => {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initNodes);
+  const [nodes, _, onNodesChange] = useNodesState(initNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initEdges);
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
     [setEdges],
   );
-
-  const addNode = () => {
-    const newNode = {
-      id: Math.random().toString(36).substr(2, 5),
-      type: "custom",
-      data: { name: "New Node", job: "Role", emoji: "🙂" },
-      position: { x: Math.random() * 400, y: Math.random() * 400 },
-    };
-    setNodes((ns) => ns.concat(newNode));
-  };
 
   return (
     <div className="w-full h-screen relative">

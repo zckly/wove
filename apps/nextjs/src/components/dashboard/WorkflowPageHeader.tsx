@@ -1,22 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import { Workflow } from "@wove/db";
-
-import { api } from "~/utils/api";
 
 export default function WorkflowPageHeader({
   workflow,
 }: {
   workflow: Workflow;
 }) {
-  const utils = api.useContext();
-
-  const { mutate: runWorkflow, isLoading } = api.workflowRun.create.useMutation(
-    {
-      async onSuccess() {
-        await utils.workflow.byId.invalidate();
-      },
-    },
-  );
-
   return (
     <div className="md:flex md:items-center md:justify-between md:space-x-5">
       <div className="flex space-x-5 items-center">

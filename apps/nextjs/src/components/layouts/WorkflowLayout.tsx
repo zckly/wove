@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { BellIcon, ChartBarIcon } from "@heroicons/react/24/outline";
 import { LightningBoltIcon, StopwatchIcon } from "@radix-ui/react-icons";
 import clsx from "clsx";

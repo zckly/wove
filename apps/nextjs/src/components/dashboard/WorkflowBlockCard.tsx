@@ -184,19 +184,19 @@ export default function WorkflowBlockCard({
             <div className="flex flex-col gap-y-4">
               <ReactMarkdown
                 components={{
-                  h1: ({ node, ...props }) => (
+                  h1: ({ ...props }) => (
                     <h1
                       className="my-2 text-gray-900 text-lg font-semibold"
                       {...props}
                     />
                   ),
-                  p: ({ node, ...props }) => (
+                  p: ({ ...props }) => (
                     <p
                       className="text-gray-700 my-1 text-sm font-text"
                       {...props}
                     />
                   ),
-                  li: ({ node, ...props }) => (
+                  li: ({ ...props }) => (
                     <li className="text-gray-600 my-1 text-sm" {...props} />
                   ),
                 }}
