@@ -14,8 +14,17 @@ env:
 
 jobs:
   build-lint:
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wove
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     env:
-      DATABASE_URL: file:./db.sqlite
+      DATABASE_URL: mysql://root@127.0.0.1:3309/wove
     runs-on: ubuntu-latest
 
     steps:
@@ -46,7 +55,7 @@ jobs:
       - name: Install deps (with cache)
         run: pnpm install
 
-      # Normally, this would be done as part of the turbo pipeline - however since the Expo app doesn't depend on `@acme/db` it doesn't care.
+      # Normally, this would be done as part of the turbo pipeline - however since the Expo app doesn't depend on `@wove/db` it doesn't care.
       # TODO: Free for all to find a better solution here.
       - name: Generate Prisma Client
         run: pnpm turbo db:generate

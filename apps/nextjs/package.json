@@ -1,5 +1,5 @@
 {
-  "name": "@acme/nextjs",
+  "name": "@wove/nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,19 +12,30 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@acme/api": "*",
-    "@acme/auth": "*",
-    "@acme/db": "*",
-    "@acme/tailwind-config": "*",
+    "@headlessui/react": "^1.7.10",
+    "@heroicons/react": "^2.0.14",
+    "@radix-ui/react-icons": "^1.1.1",
     "@tanstack/react-query": "^4.23.0",
     "@trpc/client": "^10.9.0",
     "@trpc/next": "^10.9.0",
     "@trpc/react-query": "^10.9.0",
     "@trpc/server": "^10.9.0",
+    "@wove/api": "*",
+    "@wove/auth": "*",
+    "@wove/db": "*",
+    "@wove/tailwind-config": "*",
+    "clsx": "^1.2.1",
+    "d3-hierarchy": "^3.1.2",
+    "email-validator": "^2.0.4",
     "next": "^13.1.6",
     "next-auth": "^4.19.0",
+    "openai": "^3.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.0",
+    "react-markdown": "^8.0.6",
+    "react-spring": "^9.6.1",
+    "reactflow": "^11.6.1",
     "zod": "^3.20.2"
   },
   "devDependencies": {

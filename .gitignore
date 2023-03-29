@@ -46,3 +46,12 @@ yarn-error.log*
 
 # turbo
 .turbo
+.plasmo
+
+# python
+__pycache__/
+*.py[cod]
+.Python
+env/
+htmlcov/
+.tox/

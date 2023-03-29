@@ -6,14 +6,70 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
+    provider = "sqlite"
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id      String @id @default(cuid())
-    title   String
-    content String
+model Folder {
+  id      String    @id @default(cuid())
+  name    String
+  team    Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId  String
+  workflows Workflow[]
+}
+
+model Workflow {
+  id          String          @id @default(cuid())
+  name        String
+  description String?
+  isScheduled Boolean         @default(false)
+  scheduleTime DateTime?
+  team        Team            @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId      String
+  folder      Folder?         @relation(fields: [folderId], references: [id])
+  folderId    String?
+  blocks      WorkflowBlock[]
+  runs        WorkflowRun[]
+}
+
+model WorkflowBlock {
+  id           String         @id @default(cuid())
+  name         String
+  description  String?
+  workflow     Workflow       @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  workflowId   String
+  template     WorkflowTemplate? @relation(fields: [templateId], references: [id])
+  templateId   String?
+  runs         WorkflowBlockRun[]
+}
+
+model WorkflowRun {
+  id           String         @id @default(cuid())
+  workflow     Workflow       @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  workflowId   String
+  blocks       WorkflowBlockRun[]
+}
+
+model WorkflowBlockRun {
+  id           String         @id @default(cuid())
+  workflowRun  WorkflowRun    @relation(fields: [workflowRunId], references: [id], onDelete: Cascade)
+  workflowRunId String
+  block        WorkflowBlock  @relation(fields: [blockId], references: [id], onDelete: Cascade)
+  blockId      String
+  status       String
+  startedAt    DateTime?
+  endedAt      DateTime?
+  logs         String?
+}
+
+model WorkflowTemplate {
+  id          String         @id @default(cuid())
+  name        String
+  description String?
+  isPublic    Boolean
+  team        Team           @relation(fields: [teamId], references: [id])
+  teamId      String
+  blocks      WorkflowBlock[]
 }
 
 // NextAuth.js Models
@@ -26,12 +82,12 @@ model Account {
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
+    refresh_token     String?
+    access_token      String?
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? // @db.Text
+    id_token          String? 
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -47,13 +103,25 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
+    id                 String    @id @default(cuid())
+    name               String?
+    firstName          String?
+    lastName           String?
+    username           String?   @unique
+    email              String?   @unique
+    emailVerified      DateTime?
+    image              String?
+
+    onboardingPurpose  String?
+    onboardingGoal     String?
+    onboardingRole     String?
+    accounts           Account[]
+    sessions           Session[]
+    ownedTeams         Team[]
+    teams              TeamMember[]
+
+    createdAt          DateTime  @default(now())
+    updatedAt          DateTime  @updatedAt
 }
 
 model VerificationToken {
@@ -62,4 +130,37 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+
+model TeamMember{
+    id       String @id @default(cuid())
+    team     Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+    teamId   String
+    user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId   String
+    isAdmin  Boolean @default(false)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Team {
+    id        String @id @default(cuid())
+    name      String
+    image     String?
+    ownerId   String
+    owner     User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    members   TeamMember[]
+    folders   Folder[]
+    workflows Workflow[]
+    templates WorkflowTemplate[]
+
+    stripeCustomerId String?
+    stripeSubscriptionId String?
+    stripePriceId String?
+    stripeCurrentPeriodEnd DateTime?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }

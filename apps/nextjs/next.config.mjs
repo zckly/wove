@@ -9,10 +9,19 @@
 const config = {
   reactStrictMode: true,
   /** Enables hot reloading for local packages without a build step */
-  transpilePackages: ["@acme/api", "@acme/auth", "@acme/db"],
+  transpilePackages: ["@wove/api", "@wove/auth", "@wove/db"],
   /** We already do linting and typechecking as separate tasks in CI */
   eslint: { ignoreDuringBuilds: !!process.env.CI },
   typescript: { ignoreBuildErrors: !!process.env.CI },
+  images: {
+    domains: [
+      "localhost:3000",
+      "lh3.googleusercontent.com",
+      "emojipedia-us.s3.dualstack.us-west-1.amazonaws.com",
+      "images.unsplash.com",
+      "ui-avatars.com",
+    ],
+  },
 };
 
 export default config;

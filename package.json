@@ -11,7 +11,9 @@
     "clean:workspaces": "turbo clean",
     "db:generate": "turbo db:generate",
     "db:push": "turbo db:push db:generate",
+    "db:push-hard": "turbo db:push-hard db:generate",
     "dev": "turbo dev --parallel",
+    "dev-python": "cd apps/fastapi && uvicorn main:app --reload",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo lint",
     "FIXME:lint": "turbo lint && manypkg check",
@@ -30,15 +32,12 @@
     "typescript": "^4.9.4"
   },
   "pnpm": {
-    "patchedDependencies": {
-      "react-native@0.70.5": "patches/react-native@0.70.5.patch"
-    },
     "packageExtensions": {
       "eslint-config-next@*": {
         "dependencies": {
           "next": "*"
         }
       }
-  }
+    }
   }
 }
