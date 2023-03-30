@@ -1,7 +1,5 @@
 # Wove
 
-https://wove.ai
-
 <img width="1758" alt="turbo2" src="https://i.imgur.com/XwiPXMa.jpg">
 
 ## About
