@@ -140,8 +140,6 @@ importers:
       next: ^13.1.6
       next-auth: ^4.19.0
       nodemailer: ^6.9.1
-      posthog-node: ^2.4.0
-      random-number: ^0.0.9
       react: 18.2.0
       react-dom: 18.2.0
       typescript: ^4.9.4
@@ -151,8 +149,6 @@ importers:
       next: 13.1.6_biqbaboplfbrettd7655fr4n2y
       next-auth: 4.19.0_phzvn2nhb6zk7o4ds4z4gvqlei
       nodemailer: 6.9.1
-      posthog-node: 2.4.0
-      random-number: 0.0.9
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
@@ -1735,15 +1731,6 @@ packages:
     resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
     dependencies:
       follow-redirects: 1.15.2
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
-  /axios/0.27.2:
-    resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
-    dependencies:
-      follow-redirects: 1.15.2
-      form-data: 4.0.0
     transitivePeerDependencies:
       - debug
     dev: false
@@ -4125,15 +4112,6 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
-  /posthog-node/2.4.0:
-    resolution: {integrity: sha512-ijenljLS49AzMskyrDsmEbuPUI641I/qUEUfsVTFZYzNcmmiwWCyJu4v51DjzcH/vAda4p44CIhzL2LkROCl2Q==}
-    engines: {node: '>=14.17.0'}
-    dependencies:
-      axios: 0.27.2
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
   /preact-render-to-string/5.2.6_preact@10.11.3:
     resolution: {integrity: sha512-JyhErpYOvBV1hEPwIxc/fHWXPfnEGdRKxc8gFdAZ7XV4tlzyzG847XAyEZqoDnynP88akM4eaHcSOzNcLWFguw==}
     peerDependencies:
@@ -4259,10 +4237,6 @@ packages:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
     dev: true
-
-  /random-number/0.0.9:
-    resolution: {integrity: sha512-ipG3kRCREi/YQpi2A5QGcvDz1KemohovWmH6qGfboVyyGdR2t/7zQz0vFxrfxpbHQgPPdtVlUDaks3aikD1Ljw==}
-    dev: false
 
   /rc/1.2.8:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
