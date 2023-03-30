@@ -28,7 +28,9 @@ export const workflowRunRouter = createTRPCRouter({
 
       console.log("Starting workflow...");
 
-      const chat = new ChatOpenAI({ modelName: "gpt-4" });
+      const chat = new ChatOpenAI({
+        modelName: process.env.OPENAI_MODEL_NAME ?? "gpt-3.5-turbo",
+      });
       const chatPrompt = ChatPromptTemplate.fromPromptMessages([
         SystemMessagePromptTemplate.fromTemplate(
           "The following is a friendly conversation between a human and an AI. The AI is straight-to-the-point and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know. If the user asks for a list, the AI should give the list directly without adding text before or after the list. If appropriate, you can return some or all of your response as Markdown. This includes using appropriate headings, lists, code snippets, Mermaid diagrams, etc.",

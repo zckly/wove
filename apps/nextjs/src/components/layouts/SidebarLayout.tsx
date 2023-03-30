@@ -1,14 +1,10 @@
 import { Fragment, useState } from "react";
+import Link from "next/link";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
-  CalendarIcon,
-  ChartPieIcon,
   Cog6ToothIcon,
-  DocumentDuplicateIcon,
-  FolderIcon,
   HomeIcon,
-  UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import clsx from "clsx";
@@ -17,12 +13,7 @@ import { api } from "~/utils/api";
 import Spinner from "../primitives/Spinner";
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Team", href: "#", icon: UsersIcon, current: false },
-  { name: "Projects", href: "#", icon: FolderIcon, current: false },
-  { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-  { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
-  { name: "Reports", href: "#", icon: ChartPieIcon, current: false },
+  { name: "Dashboard", href: "/app", icon: HomeIcon, current: true },
 ];
 
 export default function SidebarLayout({
@@ -108,7 +99,7 @@ export default function SidebarLayout({
                         <ul role="list" className="-mx-2 space-y-1">
                           {navigation.map((item) => (
                             <li key={item.name}>
-                              <a
+                              <Link
                                 href={item.href}
                                 className={clsx(
                                   item.current
@@ -127,7 +118,7 @@ export default function SidebarLayout({
                                   aria-hidden="true"
                                 />
                                 {item.name}
-                              </a>
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -163,8 +154,8 @@ export default function SidebarLayout({
                         </ul>
                       </li>
                       <li className="mt-auto">
-                        <a
-                          href="#"
+                        <Link
+                          href="/app/settings"
                           className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-gigas-600"
                         >
                           <Cog6ToothIcon
@@ -172,7 +163,7 @@ export default function SidebarLayout({
                             aria-hidden="true"
                           />
                           Settings
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </nav>
@@ -198,7 +189,7 @@ export default function SidebarLayout({
                 <ul role="list" className="-mx-2 space-y-1">
                   {navigation.map((item) => (
                     <li key={item.name}>
-                      <a
+                      <Link
                         href={item.href}
                         className={clsx(
                           item.current
@@ -217,7 +208,7 @@ export default function SidebarLayout({
                           aria-hidden="true"
                         />
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -253,8 +244,8 @@ export default function SidebarLayout({
                 </ul>
               </li>
               <li className="mt-auto">
-                <a
-                  href="#"
+                <Link
+                  href="/app/settings"
                   className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-gigas-600"
                 >
                   <Cog6ToothIcon
@@ -262,7 +253,7 @@ export default function SidebarLayout({
                     aria-hidden="true"
                   />
                   Settings
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>

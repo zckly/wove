@@ -7,14 +7,22 @@ import Spinner from "../primitives/Spinner";
 
 export default function WorkflowTable() {
   const { data: teamData, status: teamStatus } = api.team.activeTeam.useQuery();
-  const { data: workflows, status: workflowsStatus } =
-    api.workflow.all.useQuery();
-  const { mutateAsync } = api.workflow.create.useMutation();
+  const {
+    data: workflows,
+    status: workflowsStatus,
+    refetch,
+  } = api.workflow.all.useQuery();
+  const { mutateAsync: createWorkflow } = api.workflow.create.useMutation();
+  const { mutate: deleteWorkflow } = api.workflow.delete.useMutation({
+    async onSuccess() {
+      await refetch();
+    },
+  });
 
   const router = useRouter();
 
   const handleCreateWorkflow = async () => {
-    const workflow = await mutateAsync({
+    const workflow = await createWorkflow({
       name: "My new workflow",
       teamId: teamData?.id || "",
     });
@@ -139,6 +147,10 @@ export default function WorkflowTable() {
                       </Link>
                       <a
                         href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          deleteWorkflow(workflow.id);
+                        }}
                         className="text-red-600 hover:text-red-900 ml-4"
                       >
                         Delete
