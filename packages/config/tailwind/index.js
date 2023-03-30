@@ -1,14 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-var defaultTheme = require("tailwindcss/defaultTheme");
 
-var sansFonts = ["Pangea"];
 module.exports = {
   content: ["./src/**/*.{ts,tsx}", "./src/_app.tsx"],
   theme: {
-    fontFamily: {
-      sans: [...sansFonts, ...defaultTheme.fontFamily.sans],
-      text: ["Pangea Text"],
-    },
     extend: {
       colors: {
         shamrock: {
