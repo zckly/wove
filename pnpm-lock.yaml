@@ -41,6 +41,7 @@ importers:
       '@types/node': ^18.0.0
       '@types/react': ^18.0.25
       '@types/react-dom': ^18.0.9
+      '@upstash/qstash': ^0.3.6
       '@wove/api': '*'
       '@wove/auth': '*'
       '@wove/db': '*'
@@ -74,6 +75,7 @@ importers:
       '@trpc/next': 10.9.0_o4vjr5433zf4lxe7zgyoyoztjm
       '@trpc/react-query': 10.9.0_22wgxldzdfxutowffn2dykkd3i
       '@trpc/server': 10.9.0
+      '@upstash/qstash': 0.3.6
       '@wove/api': link:../../packages/api
       '@wove/auth': link:../../packages/auth
       '@wove/db': link:../../packages/db
@@ -406,6 +408,10 @@ packages:
       '@babel/helper-string-parser': 7.19.4
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
+    dev: false
+
+  /@deno/shim-crypto/0.3.1:
+    resolution: {integrity: sha512-ed4pNnfur6UbASEgF34gVxR9p7Mc3qF+Ygbmjiil8ws5IhNFhPDFy5vE5hQAUA9JmVsSxXPcVLM5Rf8LOZqQ5Q==}
     dev: false
 
   /@eslint/eslintrc/1.4.1:
@@ -1549,6 +1555,12 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.49.0
       eslint-visitor-keys: 3.3.0
+    dev: false
+
+  /@upstash/qstash/0.3.6:
+    resolution: {integrity: sha512-NKN4jbPhB5lfHoSIaU7AuQ3F+yGS20e/FBRiUuPetcKoi354wHhKj9AJFfkFT5SSeLq0XEsXRNynm8gqCS4HjQ==}
+    dependencies:
+      '@deno/shim-crypto': 0.3.1
     dev: false
 
   /acorn-jsx/5.3.2_acorn@8.8.1:

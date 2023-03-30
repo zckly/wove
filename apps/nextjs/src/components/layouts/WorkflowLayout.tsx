@@ -1,5 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-import { BellIcon, ChartBarIcon } from "@heroicons/react/24/outline";
+import { ChartBarIcon } from "@heroicons/react/24/outline";
 import { LightningBoltIcon, StopwatchIcon } from "@radix-ui/react-icons";
 import clsx from "clsx";
 import { Workflow } from "@wove/db";
@@ -62,23 +61,6 @@ export default function WorkflowLayout({
                 },
               ]}
             />
-            <div className="flex items-center gap-x-8">
-              <button
-                type="button"
-                className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-300"
-              >
-                <span className="sr-only">View notifications</span>
-                <BellIcon className="h-6 w-6" aria-hidden="true" />
-              </button>
-              <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your profile</span>
-                <img
-                  className="h-8 w-8 rounded-full bg-gray-800"
-                  src="https://wallpapers.com/images/hd/mellow-beluga-cat-w5m9sbsnv4t4osjr.jpg"
-                  alt=""
-                />
-              </a>
-            </div>
           </div>
         </header>
 
@@ -143,10 +125,10 @@ export default function WorkflowLayout({
                     }}
                     type="button"
                     disabled={isLoading}
-                    className="disabled:bg-gigas-800 w-1/2 inline-flex items-center justify-center rounded-md bg-gigas-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                    className="disabled:bg-gigas-800 w-1/2 inline-flex items-center justify-center rounded-md bg-gigas-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gigas-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gigas-600"
                   >
                     {isLoading ? (
-                      <div className="mx-auto w-full">
+                      <div className="w-full flex justify-center items-center">
                         <Spinner />
                       </div>
                     ) : (

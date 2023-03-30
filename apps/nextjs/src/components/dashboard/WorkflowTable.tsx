@@ -95,9 +95,9 @@ export default function WorkflowTable() {
                   <tr key={workflow.id}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-0">
                       <div className="flex items-center">
-                        <div className="h-10 w-10 flex-shrink-0">
+                        <div className="h-6 w-6 flex-shrink-0">
                           <img
-                            className="h-10 w-10 rounded-full"
+                            className="h-6 w-6 rounded-full mx-auto"
                             src={
                               "https://em-content.zobj.net/thumbs/240/apple/354/light-bulb_1f4a1.png"
                             }
@@ -137,6 +137,12 @@ export default function WorkflowTable() {
                       >
                         Edit
                       </Link>
+                      <a
+                        href="#"
+                        className="text-red-600 hover:text-red-900 ml-4"
+                      >
+                        Delete
+                      </a>
                     </td>
                   </tr>
                 ))}

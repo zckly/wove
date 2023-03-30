@@ -20,6 +20,7 @@
     "@trpc/next": "^10.9.0",
     "@trpc/react-query": "^10.9.0",
     "@trpc/server": "^10.9.0",
+    "@upstash/qstash": "^0.3.6",
     "@wove/api": "*",
     "@wove/auth": "*",
     "@wove/db": "*",

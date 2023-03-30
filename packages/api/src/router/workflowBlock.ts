@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const workflowBlockRouter = createTRPCRouter({
-  byId: publicProcedure.input(z.string().min(1)).query(({ ctx, input }) => {
+  byId: protectedProcedure.input(z.string().min(1)).query(({ ctx, input }) => {
     return ctx.prisma.workflowBlock.findFirst({
       where: { id: input },
     });

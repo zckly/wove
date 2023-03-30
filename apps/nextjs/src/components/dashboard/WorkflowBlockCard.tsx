@@ -169,12 +169,12 @@ export default function WorkflowBlockCard({
             {logsHidden ? (
               <>
                 <ChevronDownIcon className="h-5 w-5 text-gray-400" />
-                <span className="text-gray-600 text-sm">Show logs</span>
+                <span className="text-gray-600 text-sm">Show output</span>
               </>
             ) : (
               <>
                 <ChevronUpIcon className="h-5 w-5 text-gray-400" />
-                <span className="text-gray-600 text-sm">Hide logs</span>
+                <span className="text-gray-600 text-sm">Hide output</span>
               </>
             )}
           </button>
@@ -205,8 +205,8 @@ export default function WorkflowBlockCard({
                 {lastRun.logs || ""}
               </ReactMarkdown>
               <p className="text-gray-600 text-sm">
-                Last run:{" "}
-                {lastRun.startedAt?.toLocaleTimeString() ?? "Missing date"}
+                Last run: {lastRun.startedAt?.toLocaleDateString()}
+                {lastRun.startedAt?.toLocaleTimeString()}
               </p>
             </div>
           </div>

@@ -10,6 +10,9 @@ This is the monorepo for Wove, a tool for building long-running workflows with L
 
 This repo uses the following technologies:
 
+- Node 18
+- PNPM
+- Typescript
 - Turborepo
 - NextJS 13
 - React 18

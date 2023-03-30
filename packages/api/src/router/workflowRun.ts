@@ -34,7 +34,6 @@ export const workflowRunRouter = createTRPCRouter({
           "The following is a friendly conversation between a human and an AI. The AI is straight-to-the-point and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know. If the user asks for a list, the AI should give the list directly without adding text before or after the list. If appropriate, you can return some or all of your response as Markdown. This includes using appropriate headings, lists, code snippets, Mermaid diagrams, etc.",
         ),
         new MessagesPlaceholder("history"),
-
         HumanMessagePromptTemplate.fromTemplate("{text}"),
       ]);
       const chain = new ConversationChain({
@@ -47,7 +46,6 @@ export const workflowRunRouter = createTRPCRouter({
       });
 
       // For each block, we want to call the chain with the block's text.
-      // We can do this with a for loop:
       const runs: {
         blockId: string;
         logs: string;
@@ -65,7 +63,7 @@ export const workflowRunRouter = createTRPCRouter({
         }
       }
 
-      console.log({ runs });
+      console.log("Workflow complete.");
 
       // Now update the DB
       return ctx.prisma.workflowRun.create({
