@@ -6,4 +6,5 @@
 - move to planetscale
 - Add settings
 - Add projects
-- Let users log out lol
+- Allow people to move blocks up and down
+- Finish implementing scheduling
