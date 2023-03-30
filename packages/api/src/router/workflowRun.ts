@@ -56,11 +56,11 @@ export const workflowRunRouter = createTRPCRouter({
         const res = await chain.call({
           text: block.description,
         });
-        console.log({ res });
         if ("response" in res) {
           runs.push({
             blockId: block.id,
-            logs: res.response || "No output. Try again!",
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            logs: res.response,
           });
         }
       }
