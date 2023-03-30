@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import Logo from "../primitives/Logo";
 
@@ -21,18 +20,9 @@ export default function AuthLayout({
               <Logo />
               <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">
                 {mode === "login"
-                  ? "Sign in to your account"
+                  ? "Sign in or create your account"
                   : "Create a new account"}
               </h2>
-              <p className="mt-2 text-sm text-gray-600">
-                Or{" "}
-                <Link
-                  href={mode === "login" ? "/signup" : "/login"}
-                  className="font-medium text-shamrock-600 hover:text-shamrock-500"
-                >
-                  sign {mode === "login" ? "up for an" : "in to your"} account
-                </Link>
-              </p>
             </div>
 
             <div className="mt-8">
@@ -104,19 +94,6 @@ export default function AuthLayout({
                           ></path>
                         </svg>
                       </a>
-                    </div>
-                  </div>
-                  <div className="relative mt-6">
-                    <div
-                      className="absolute inset-0 flex items-center"
-                      aria-hidden="true"
-                    >
-                      <div className="w-full border-t border-gray-300" />
-                    </div>
-                    <div className="relative flex justify-center text-sm">
-                      <span className="bg-white px-2 text-gray-500">
-                        Or continue with
-                      </span>
                     </div>
                   </div>
                 </div>
