@@ -25,6 +25,7 @@ export const server = z.object({
   GOOGLE_OAUTH_CLIENT_ID: z.string(),
   GOOGLE_OAUTH_CLIENT_SECRET: z.string(),
   OPENAI_API_KEY: z.string(),
+  OPENAI_MODEL_KEY: z.string(),
   SERPER_API_KEY: z.string(),
 });
 
@@ -52,6 +53,7 @@ const processEnv = {
   GOOGLE_OAUTH_CLIENT_ID: process.env.GOOGLE_OAUTH_CLIENT_ID,
   GOOGLE_OAUTH_CLIENT_SECRET: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+  OPENAI_MODEL_KEY: process.env.OPENAI_MODEL_KEY,
   SERPER_API_KEY: process.env.SERPER_API_KEY,
   NEXT_PUBLIC_EXTENSION_ID: process.env.NEXT_PUBLIC_EXTENSION_ID,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,

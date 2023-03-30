@@ -79,6 +79,8 @@ cp .env.example .env
 pnpm db:push
 ```
 
+## Set up login providers
+
 This app has Discord and Google as login options. If you want to run it locally and be able to log in, you need to have one of these two options set up.
 
 Here's how to set up Discord:
@@ -90,6 +92,15 @@ Here's how to set up Google:
 
 - (Create a Google developer application)[https://console.developers.google.com/apis/credentials]
 - Grab your client ID and client secret and add them to your `.env` file as `GOOGLE_OAUTH_CLIENT_ID` and `GOOGLE_OAUTH_CLIENT_SECRET`
+
+## Set up OpenAI
+
+This app uses OpenAI GPT4 to generate text. If you want to run it locally and be able to use the OpenAI feature, you need to have an OpenAI account and set up your API key.
+
+- (Create an OpenAI account)[https://platform.openai.com/]
+- Grab your API key and add it to your `.env` file as `OPENAI_API_KEY`
+
+Also note that if you don't have GPT4 access, you can modify the `OPENAI_MODEL_KEY` environment variable to use a different chat model (e.g. `gpt-3.5.-turbo`).
 
 ## Deployment
 
