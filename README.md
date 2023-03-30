@@ -24,6 +24,9 @@ This repo uses the following technologies:
 - Langchain
 - Vercel
 - Upstash
+- SQLite
+
+...there's probably more, but that's what I can think of off the top of my head.
 
 ## Folder Structure
 
@@ -62,10 +65,11 @@ To get it running, follow the steps below:
 # Install dependencies
 pnpm i
 
-# In packages/db/prisma update schema.prisma provider to use sqlite
+# If you'd like to use a different database other than SQLite, you can go
+# to packages/db/prisma and update schema.prisma provider
 # or use your own database provider
-- provider = "postgresql"
-+ provider = "sqlite"
+- provider = "sqlite"
++ provider = "postgresql"
 
 # Configure environment variables.
 # There is an `.env.example` in the root directory you can use for reference
@@ -74,6 +78,18 @@ cp .env.example .env
 # Push the Prisma schema to your database
 pnpm db:push
 ```
+
+This app has Discord and Google as login options. If you want to run it locally and be able to log in, you need to have one of these two options set up.
+
+Here's how to set up Discord:
+
+- (Create a Discord developer application)[https://discord.com/developers/applications]
+- Grab your client ID and client secret and add them to your `.env` file as `DISCORD_CLIENT_ID` and `DISCORD_CLIENT_SECRET`
+
+Here's how to set up Google:
+
+- (Create a Google developer application)[https://console.developers.google.com/apis/credentials]
+- Grab your client ID and client secret and add them to your `.env` file as `GOOGLE_OAUTH_CLIENT_ID` and `GOOGLE_OAUTH_CLIENT_SECRET`
 
 ## Deployment
 

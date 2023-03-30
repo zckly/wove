@@ -22,8 +22,9 @@ export const server = z.object({
   ),
   DISCORD_CLIENT_ID: z.string(),
   DISCORD_CLIENT_SECRET: z.string(),
+  GOOGLE_OAUTH_CLIENT_ID: z.string(),
+  GOOGLE_OAUTH_CLIENT_SECRET: z.string(),
   OPENAI_API_KEY: z.string(),
-  SERPAPI_API_KEY: z.string(),
   SERPER_API_KEY: z.string(),
 });
 
@@ -33,7 +34,6 @@ export const server = z.object({
  * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 export const client = z.object({
-  NEXT_PUBLIC_EXTENSION_ID: z.string(),
   // NEXT_PUBLIC_CLIENTVAR: z.string(),
 });
 
@@ -49,8 +49,9 @@ const processEnv = {
   NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
   DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
+  GOOGLE_OAUTH_CLIENT_ID: process.env.GOOGLE_OAUTH_CLIENT_ID,
+  GOOGLE_OAUTH_CLIENT_SECRET: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
-  SERPAPI_API_KEY: process.env.SERPAPI_API_KEY,
   SERPER_API_KEY: process.env.SERPER_API_KEY,
   NEXT_PUBLIC_EXTENSION_ID: process.env.NEXT_PUBLIC_EXTENSION_ID,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,

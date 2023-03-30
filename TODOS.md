@@ -4,3 +4,6 @@
 - streaming responses
 - agents
 - move to planetscale
+- Add settings
+- Add projects
+- Let users log out lol

@@ -1,18 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
-import * as EmailValidator from "email-validator";
 import { signIn, useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 
 import AuthLayout from "~/components/layouts/AuthLayout";
-import { useOnboardingContext } from "~/context/onboarding";
 
 export default function LoginPage() {
   const { status } = useSession();
   const router = useRouter();
   const { error } = router.query;
-  const { setEmail } = useOnboardingContext();
-  const [emailInput, setEmailInput] = useState("");
 
   useEffect(() => {
     console.log({ error });
@@ -32,12 +28,8 @@ export default function LoginPage() {
   return (
     <AuthLayout
       mode="login"
-      emailInput={emailInput}
-      setEmailInput={setEmailInput}
       onGoogleSignIn={onGoogleSignIn}
       onDiscordSignIn={onDiscordSignIn}
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      onEmailSignIn={onEmailSignIn}
     />
   );
 
@@ -53,24 +45,5 @@ export default function LoginPage() {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
       toast.error(error.message);
     });
-  }
-
-  async function onEmailSignIn() {
-    if (!emailInput) {
-      toast.error("Please enter your email");
-      return;
-    }
-    // This might never even fire, but just in case
-    if (!EmailValidator.validate(emailInput)) {
-      toast.error("Please enter a valid email");
-      return;
-    }
-    try {
-      setEmail(emailInput);
-
-      await signIn("email", { email: emailInput });
-    } catch (error) {
-      console.log({ error });
-    }
   }
 }
