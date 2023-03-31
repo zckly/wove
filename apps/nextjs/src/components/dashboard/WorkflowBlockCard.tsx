@@ -1,13 +1,12 @@
-import { Fragment, useState } from "react";
-import { Menu, Transition } from "@headlessui/react";
+import { useState } from "react";
 import {
   ChevronDownIcon,
   ChevronUpIcon,
-  EllipsisVerticalIcon,
+  XMarkIcon,
 } from "@heroicons/react/20/solid";
-import { PencilIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { WorkflowBlock, WorkflowBlockRun } from "@prisma/client";
-import clsx from "clsx";
+import { CheckIcon, Pencil1Icon } from "@radix-ui/react-icons";
+import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 
 import { api } from "~/utils/api";
@@ -31,6 +30,16 @@ export default function WorkflowBlockCard({
     },
   });
   const { mutate: updateBlock } = api.workflowBlock.update.useMutation({
+    async onSuccess() {
+      await utils.workflow.invalidate();
+    },
+  });
+  const { mutate: moveUp } = api.workflowBlock.moveUp.useMutation({
+    async onSuccess() {
+      await utils.workflow.invalidate();
+    },
+  });
+  const { mutate: moveDown } = api.workflowBlock.moveDown.useMutation({
     async onSuccess() {
       await utils.workflow.invalidate();
     },
@@ -59,92 +68,62 @@ export default function WorkflowBlockCard({
             )}
           </div>
           <div className="flex flex-shrink-0 self-center">
-            <Menu as="div" className="relative inline-block text-left">
-              <div>
-                {isEditing ? (
-                  <button
-                    type="button"
-                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gigas-600 hover:bg-gigas-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gigas-500"
-                    onClick={() => {
-                      updateBlock({
-                        blockId: block.id,
-                        name: nameInput,
-                        description: prompt,
-                      });
-                      setIsEditing(false);
-                    }}
-                  >
-                    Save
-                  </button>
-                ) : (
-                  <Menu.Button className="-m-2 flex items-center rounded-full p-2 text-gray-400 hover:text-gray-600">
-                    <span className="sr-only">Open options</span>
-                    <EllipsisVerticalIcon
-                      className="h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  </Menu.Button>
-                )}
-              </div>
-
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
+            <span className="isolate inline-flex rounded-md shadow-sm">
+              <button
+                type="button"
+                onClick={() => moveUp(block.id)}
+                className="relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
               >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div className="py-1">
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setIsEditing(true);
-                          }}
-                          className={clsx(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "flex px-4 py-2 text-sm w-full",
-                          )}
-                        >
-                          <PencilIcon
-                            className="mr-3 h-5 w-5 text-gray-400"
-                            aria-hidden="true"
-                          />
-                          <span>Edit</span>
-                        </button>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            deleteBlock(block.id);
-                          }}
-                          className={clsx(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "flex px-4 py-2 text-sm w-full",
-                          )}
-                        >
-                          <XMarkIcon className="mr-3 h-5 w-5 text-gray-400" />
-                          <span>Delete</span>
-                        </button>
-                      )}
-                    </Menu.Item>
-                  </div>
-                </Menu.Items>
-              </Transition>
-            </Menu>
+                <span className="sr-only">Move up</span>
+                <ChevronUpIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                onClick={() => moveDown(block.id)}
+                className="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+              >
+                <span className="sr-only">Move down</span>
+                <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (isEditing) {
+                    updateBlock({
+                      blockId: block.id,
+                      name: nameInput,
+                      description: prompt,
+                    });
+                    setIsEditing(false);
+                  } else {
+                    setIsEditing(true);
+                  }
+                }}
+                className="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+              >
+                <span className="sr-only">{isEditing ? "Save" : "Edit"}</span>
+                {isEditing ? (
+                  <CheckIcon
+                    className="h-5 w-5 text-green-700"
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <Pencil1Icon className="h-5 w-5" aria-hidden="true" />
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  // TODO: Add some kind of warning message here
+                  deleteBlock(block.id);
+                  toast.success("Block deleted");
+                }}
+                className="relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+              >
+                <span className="sr-only">Delete</span>
+                <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </span>
           </div>
         </div>
         <div className="py-4">

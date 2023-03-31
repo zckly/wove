@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { useRouter } from "next/router";
 import { PlusIcon } from "@heroicons/react/20/solid";
+import toast from "react-hot-toast";
 
 import { api } from "~/utils/api";
 import WorkflowBlockCard from "~/components/dashboard/WorkflowBlockCard";
@@ -54,7 +55,9 @@ const WorkflowPage: React.FC = () => {
                 onClick={() => {
                   createBlock({
                     workflowId: workflow.id,
+                    prevOrder: block.order,
                   });
+                  toast.success("Block created");
                 }}
                 className="rounded-full border border-gigas-600 p-1.5 text-gigas-600 shadow-sm hover:bg-gigas-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gigas-600"
               >
