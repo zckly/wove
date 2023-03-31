@@ -13,16 +13,19 @@ import { api } from "~/utils/api";
 
 export default function WorkflowBlockCard({
   block,
+  logsHidden,
+  setLogsHidden,
 }: {
   block: WorkflowBlock & {
     runs: WorkflowBlockRun[];
   };
+  logsHidden: boolean;
+  setLogsHidden: (hidden: boolean) => void;
 }) {
   const utils = api.useContext();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [nameInput, setNameInput] = useState<string>(block.name);
   const [prompt, setPrompt] = useState<string>(block.description || "");
-  const [logsHidden, setLogsHidden] = useState<boolean>(true);
 
   const { mutate: deleteBlock } = api.workflowBlock.delete.useMutation({
     async onSuccess() {
@@ -139,25 +142,28 @@ export default function WorkflowBlockCard({
             </ReactMarkdown>
           )}
         </div>
-        <div>
-          <button
-            type="button"
-            className="flex items-start text-gray-400 hover:text-gray-600 -ml-1"
-            onClick={() => setLogsHidden(!logsHidden)}
-          >
-            {logsHidden ? (
-              <>
-                <ChevronDownIcon className="h-5 w-5 text-gray-400" />
-                <span className="text-gray-600 text-sm">Show output</span>
-              </>
-            ) : (
-              <>
-                <ChevronUpIcon className="h-5 w-5 text-gray-400" />
-                <span className="text-gray-600 text-sm">Hide output</span>
-              </>
-            )}
-          </button>
-        </div>
+        {lastRun?.logs?.length ? (
+          <div>
+            <button
+              type="button"
+              className="flex items-start text-gray-400 hover:text-gray-600 -ml-1"
+              onClick={() => setLogsHidden(!logsHidden)}
+            >
+              {logsHidden ? (
+                <>
+                  <ChevronDownIcon className="h-5 w-5 text-gray-400" />
+                  <span className="text-gray-600 text-sm">Show output</span>
+                </>
+              ) : (
+                <>
+                  <ChevronUpIcon className="h-5 w-5 text-gray-400" />
+                  <span className="text-gray-600 text-sm">Hide output</span>
+                </>
+              )}
+            </button>
+          </div>
+        ) : null}
+
         {lastRun && !logsHidden && (
           <div className="pt-4">
             <div className="flex flex-col gap-y-4">

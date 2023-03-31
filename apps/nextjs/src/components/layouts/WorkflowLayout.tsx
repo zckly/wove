@@ -1,6 +1,7 @@
-import { ChartBarIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
 import { LightningBoltIcon, StopwatchIcon } from "@radix-ui/react-icons";
 import clsx from "clsx";
+import { toast } from "react-hot-toast";
 import { Workflow } from "@wove/db";
 
 import { api } from "~/utils/api";
@@ -9,7 +10,7 @@ import Spinner from "../primitives/Spinner";
 
 const navigation = [
   {
-    name: "Models",
+    name: "Agents",
     href: "#",
     icon: LightningBoltIcon,
     current: false,
@@ -20,28 +21,27 @@ const navigation = [
     icon: StopwatchIcon,
     current: false,
   },
-  {
-    name: "Runs",
-    href: "#",
-    icon: LightningBoltIcon,
-    current: false,
-    count: "19",
-  },
-  { name: "Analytics", href: "#", icon: ChartBarIcon, current: false },
 ];
 
 export default function WorkflowLayout({
   children,
   workflow,
+  showAllLogs,
 }: {
   children: React.ReactNode;
   workflow: Workflow;
+  showAllLogs: () => void;
 }) {
   const utils = api.useContext();
-
+  const [activeNavIndex, setActiveNavIndex] = useState<number | null>(null);
   const { mutate: runWorkflow, isLoading } = api.workflowRun.create.useMutation(
     {
       async onSuccess() {
+        toast.success("Run completed successfully!");
+
+        // TODO: Right now this line isn't working because i'm a dumdum
+        showAllLogs();
+
         await utils.workflow.byId.invalidate();
       },
     },
@@ -72,8 +72,11 @@ export default function WorkflowLayout({
               {/* Activity Feed */}
               <div className="mt-6 flow-root">
                 <nav className="space-y-1" aria-label="Sidebar">
-                  {navigation.map((item) => (
+                  {navigation.map((item, i) => (
                     <a
+                      onClick={() => {
+                        setActiveNavIndex(i);
+                      }}
                       key={item.name}
                       href={item.href}
                       className={clsx(
@@ -94,33 +97,36 @@ export default function WorkflowLayout({
                         aria-hidden="true"
                       />
                       <span className="truncate">{item.name}</span>
-                      {item.count ? (
-                        <span
-                          className={clsx(
-                            item.current
-                              ? "bg-white"
-                              : "bg-gray-100 group-hover:bg-gray-200",
-                            "ml-auto inline-block rounded-full py-0.5 px-3 text-xs",
-                          )}
-                        >
-                          {item.count}
-                        </span>
-                      ) : null}
                     </a>
                   ))}
                 </nav>
               </div>
+              {typeof activeNavIndex === "number" ? (
+                <div className="mt-6">
+                  {activeNavIndex === 0 ? (
+                    <div className="flex flex-col gap-y-2">
+                      Agents aren&apos;t ready yet. Stay tuned!
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-y-2">
+                      Triggers aren&apos;t ready yet. Stay tuned!
+                    </div>
+                  )}
+                </div>
+              ) : null}
               <div className="justify-stretch mt-6 flex flex-col">
                 <div className="flex flex-row gap-x-2 w-full">
                   <button
                     type="button"
-                    className="w-1/2 inline-flex items-center justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                    disabled
+                    className="disabled:bg-gray-200 disabled:cursor-not-allowed w-1/2 inline-flex items-center justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                   >
                     Schedule Run
                   </button>
                   <button
                     onClick={(e) => {
                       e.preventDefault();
+                      toast("Running workflow... (this may take a while)");
                       runWorkflow({ workflowId: workflow.id });
                     }}
                     type="button"
@@ -132,7 +138,7 @@ export default function WorkflowLayout({
                         <Spinner />
                       </div>
                     ) : (
-                      "Run workflow"
+                      "Run now"
                     )}
                   </button>
                 </div>

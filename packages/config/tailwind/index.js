@@ -5,19 +5,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        shamrock: {
-          DEFAULT: "#44D194",
-          50: "#D7F5E8",
-          100: "#C7F1DF",
-          200: "#A6E9CC",
-          300: "#85E1B9",
-          400: "#65D9A7",
-          500: "#44D194",
-          600: "#2CB177",
-          700: "#218459",
-          800: "#15573B",
-          900: "#0A2A1C",
-        },
         tasman: {
           DEFAULT: "#CED4CB",
           50: "#FFFFFF",
