@@ -26,6 +26,9 @@ export const workflowRouter = createTRPCRouter({
       where: { id: input },
       include: {
         blocks: {
+          orderBy: {
+            order: "asc",
+          },
           include: {
             runs: {
               orderBy: { startedAt: "asc" },
@@ -48,6 +51,7 @@ export const workflowRouter = createTRPCRouter({
             create: {
               name: "Untitled block",
               description: "You are an AI assistant.",
+              order: 0,
             },
           },
         },

@@ -41,6 +41,7 @@ model WorkflowBlock {
   template     WorkflowTemplate? @relation(fields: [templateId], references: [id])
   templateId   String?
   runs         WorkflowBlockRun[]
+  order        Int
 }
 
 model WorkflowRun {
