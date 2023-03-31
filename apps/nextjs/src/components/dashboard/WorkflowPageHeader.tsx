@@ -2,23 +2,28 @@
 
 import { useState } from "react";
 import { Pencil1Icon } from "@radix-ui/react-icons";
-import { Workflow } from "@wove/db";
+import { Workflow, WorkflowBlock, WorkflowRun } from "@wove/db";
 
 import { api } from "~/utils/api";
 
 export default function WorkflowPageHeader({
   workflow,
 }: {
-  workflow: Workflow;
+  workflow: Workflow & {
+    blocks: WorkflowBlock[];
+    runs: WorkflowRun[];
+  };
 }) {
   const utils = api.useContext();
   const [nameInput, setNameInput] = useState<string>(workflow.name);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const { mutate } = api.workflow.update.useMutation({
     async onSuccess() {
-      await utils.workflow.all.invalidate();
+      await utils.workflow.byId.invalidate();
     },
   });
+
+  const lastRun = workflow.runs[workflow.runs.length - 1];
 
   return (
     <div className="md:flex md:items-center md:justify-between md:space-x-5">
@@ -46,7 +51,7 @@ export default function WorkflowPageHeader({
               type="text"
               value={nameInput}
               onChange={(e) => setNameInput(e.target.value)}
-              className="text-2xl font-bold text-gray-900"
+              className="text-2xl font-bold text-gray-900 lg:w-[25rem]"
             />
           ) : (
             <h1 className="text-2xl font-bold text-gray-900">
@@ -54,9 +59,15 @@ export default function WorkflowPageHeader({
             </h1>
           )}
           <p className="text-sm font-medium text-gray-500">
-            Average run time: <span className="text-gray-900">8m 30s.</span>{" "}
-            Last run: <span className="text-gray-900">2 hours ago</span>. Next
-            run: <span className="text-gray-900">in 3 hours</span>
+            <span className="text-gray-900">{workflow.blocks.length}</span>{" "}
+            blocks in workflow. Last run:{" "}
+            <span className="text-gray-900">
+              {lastRun && lastRun.startedAt
+                ? // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                  new Date(lastRun?.startedAt).toLocaleString()
+                : "never"}
+            </span>
+            .
           </p>
         </div>
       </div>

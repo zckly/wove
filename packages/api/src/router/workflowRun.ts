@@ -70,6 +70,9 @@ export const workflowRunRouter = createTRPCRouter({
       // Now update the DB
       return ctx.prisma.workflowRun.create({
         data: {
+          // TODO: THIS IS WRONG!!
+          startedAt: new Date(),
+          endedAt: new Date(),
           workflow: {
             connect: { id: workflow.id },
           },

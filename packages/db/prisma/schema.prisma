@@ -49,6 +49,8 @@ model WorkflowRun {
   workflow     Workflow       @relation(fields: [workflowId], references: [id], onDelete: Cascade)
   workflowId   String
   blocks       WorkflowBlockRun[]
+  startedAt    DateTime?
+  endedAt      DateTime?
 }
 
 model WorkflowBlockRun {
