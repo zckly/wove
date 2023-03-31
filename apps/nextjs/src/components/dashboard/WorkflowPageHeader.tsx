@@ -63,7 +63,8 @@ export default function WorkflowPageHeader({
             blocks in workflow. Last run:{" "}
             <span className="text-gray-900">
               {lastRun && lastRun.startedAt
-                ? new Date(lastRun?.startedAt as Date).toLocaleString()
+                ? // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                  new Date(lastRun?.startedAt).toLocaleString()
                 : "never"}
             </span>
             .
