@@ -4,7 +4,7 @@
 
 ## ⚠️ This is still a work in progress⚠️
 
-Currently the app is missing the scheduling and agent functionality. Working on getting these merged in, but it may take me a few more days or so. Check back for updates!
+Currently the app is missing the scheduling and agent functionality. You can still build and run workflows instantly. Working on getting these merged in, but it may take me a few more days or so. Check back for updates!
 
 ## About
 
