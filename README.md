@@ -1,5 +1,9 @@
 # Wove
 
+## ⚠️ This is still a work in progress⚠️
+
+Currently the app is missing the scheduling and agent functionality. Working on getting these merged in, but it may take me a few more days or so. Check back for updates!
+
 <img width="1758" alt="turbo2" src="https://i.imgur.com/XwiPXMa.jpg">
 
 ## About
