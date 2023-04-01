@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-import runWorkflow from "../utils/runWorkflow";
+import runWorkflow from "../utils/chat/runWorkflow";
 
 export const workflowRunRouter = createTRPCRouter({
   create: protectedProcedure

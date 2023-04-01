@@ -2,7 +2,7 @@
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import { verifySignature } from "@upstash/qstash/nextjs";
-import runWorkflow from "@wove/api/src/utils/runWorkflow";
+import runWorkflow from "@wove/api/src/utils/chat/runWorkflow";
 import { prisma } from "@wove/db";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
