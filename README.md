@@ -55,10 +55,6 @@ packages
      └─ typesafe db-calls using Prisma
 ```
 
-## FAQ
-
-TODO
-
 ## Quick Start
 
 To get it running, follow the steps below:
